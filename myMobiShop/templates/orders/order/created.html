@@ -1,0 +1,13 @@
+{% extends "store/base.html" %}
+
+{% block title %}Thank you{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Dziękujemy!</h1>
+    <p>Twoje zamówienie zostało pomyślnie zrealizowane. Twój numer zamówienia to
+        <strong>{{ order.id }}</strong>.</p>
+</div>
+
+{% endblock %}

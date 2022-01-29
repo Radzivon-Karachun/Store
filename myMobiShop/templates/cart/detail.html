@@ -1,0 +1,57 @@
+{% extends "store/base.html" %}
+{% load static %}
+{% block title %}
+    Your shopping cart
+{% endblock %}
+{% block content %}
+
+<div class="container">
+    <h1>Your shopping cart</h1>
+    <table class="table align-middle text-center">
+        <thead>
+        <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Remove</th>
+            <th>Unit price</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in cart %}
+            {% with product=item.product %}
+                <tr>
+                    <td>
+                        <a href="{{ product.get_absolute_url }}">
+                            <img class="img-fluid mx-auto d-block" width="75px" src="{{ product.image.url }}">
+                        </a>
+                    </td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td><a href="{% url 'cart:cart_remove' product.id %}">Remove</a></td>
+                    <td class="num">${{ item.price }}</td>
+                    <td class="num">${{ item.total_price }}</td>
+                </tr>
+            {% endwith %}
+        {% endfor %}
+        <tr class="total">
+            <td>Total</td>
+            <td colspan="4"></td>
+            <td class="num">${{ cart.get_total_price }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="text-right">
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-primary btn-sm" href="{% url 'shop:product_list' %}" role="button">Continue shopping</a>
+        </div>
+        <div class="col-6 text-end">
+            <a href="{% url 'orders:order_create' %}" class="btn btn-success btn-sm" role="button">Checkout</a>
+        </div>
+    </div>
+    </p>
+</div>
+
+{% endblock %}
